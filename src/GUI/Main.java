@@ -5,7 +5,6 @@ import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.ImageIcon;
@@ -13,24 +12,30 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
 import javax.swing.KeyStroke;
+import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+import spravceknih.Book;
 
 public class Main extends JFrame {
 
     // <editor-fold defaultstate="collapsed" desc="Components init">
-    private JMenuBar menuBar = new JMenuBar();
-    private JMenu menu;
-    private JMenuItem menuItem = new JMenuItem();
-    private File soubor = new File("./Novy.kar");// </editor-fold>
+        private JMenuBar menuBar = new JMenuBar();
+        private JMenu menu;
+        private JMenuItem menuItem = new JMenuItem();
+        private JTabbedPane left = new JTabbedPane(SwingConstants.LEFT);
+    // </editor-fold>
 
     public Main(){
 
         // <editor-fold defaultstate="collapsed" desc="main Frame">
         setTitle("Libroid");
-        setSize(800, 640);
+        setSize(1000, 640);
         //setLayout(new BorderLayout());
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
@@ -115,6 +120,16 @@ public class Main extends JFrame {
 
         // </editor-fold>
 
+        // <editor-fold defaultstate="collapsed" desc="Components">
+            LibraryTable libraryTable = new LibraryTable();
+            JScrollPane bookTableContainer = new JScrollPane(libraryTable);
+
+            left.addTab("Books", bookTableContainer);
+            left.addTab("Lists", new JPanel());
+            left.addTab("wishlist", new JPanel());
+            add(left);
+        // </editor-fold>
+
     }
 
     public static void main(String[] args) {
@@ -131,5 +146,4 @@ public class Main extends JFrame {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }
